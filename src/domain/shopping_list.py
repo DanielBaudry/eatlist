@@ -9,6 +9,12 @@ class ShoppingList:
         self.user_id = user_id
         self.items = items
 
+    def already_contains(self, new_item: Item) -> bool:
+        for item in self.items:
+            if item.identifier == new_item.identifier:
+                return True
+        return False
+
 
 class ShoppingListRepository(ABC):
     @abstractmethod

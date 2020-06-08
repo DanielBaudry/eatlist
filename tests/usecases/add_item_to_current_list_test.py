@@ -1,6 +1,7 @@
 from unittest.mock import MagicMock
 
 from src.domain.item import Item
+from src.domain.shopping_list import ShoppingList
 from src.infrastructure.database.repositories.item import ItemRepositorySQL
 from src.infrastructure.database.repositories.shopping_list import ShoppingListRepositorySQL
 from src.usecases.add_item_to_current_list import AddItemToCurrentList
@@ -11,18 +12,26 @@ class AddItemToCurrentListTest:
         self.item_repository = ItemRepositorySQL()
         self.item_repository.convert_item_from_name = MagicMock()
         self.shopping_list_repository = ShoppingListRepositorySQL()
+        self.shopping_list_repository.get_current_list = MagicMock()
         self.shopping_list_repository.add_item = MagicMock()
         self.add_item_to_current_list = AddItemToCurrentList(
             self.item_repository,
             self.shopping_list_repository
         )
 
-    def should_add_item_to_current_user_shopping_list(self):
+    def should_add_item_to_current_user_shopping_list_when_list_is_empty(self):
         # Given
         item_name = 'Cacao'
         user_id = 5
         item = Item(identifier=12, name='Caco')
         self.item_repository.convert_item_from_name.return_value = item
+        shopping_list = ShoppingList(
+            user_id=user_id,
+            items=[
+                Item(identifier=26, name='Lait')
+            ]
+        )
+        self.shopping_list_repository.get_current_list.return_value = shopping_list
 
         # When
         self.add_item_to_current_list.execute(new_item_name=item_name,
@@ -30,4 +39,28 @@ class AddItemToCurrentListTest:
 
         # Then
         self.item_repository.convert_item_from_name.assert_called_once_with(item_name)
+        self.shopping_list_repository.get_current_list.assert_called_once_with(user_id)
         self.shopping_list_repository.add_item.assert_called_once_with(item, user_id)
+
+    def should_return_current_list_when_item_is_already_in_the_list(self):
+        # Given
+        item_name = 'Cacao'
+        user_id = 5
+        item = Item(identifier=12, name='Caco')
+        self.item_repository.convert_item_from_name.return_value = item
+        shopping_list = ShoppingList(
+            user_id=user_id,
+            items=[
+                Item(identifier=12, name='Caco')
+            ]
+        )
+        self.shopping_list_repository.get_current_list.return_value = shopping_list
+
+        # When
+        self.add_item_to_current_list.execute(new_item_name=item_name,
+                                              user_id=user_id)
+
+        # Then
+        self.item_repository.convert_item_from_name.assert_called_once_with(item_name)
+        self.shopping_list_repository.get_current_list.assert_called_once_with(user_id)
+        self.shopping_list_repository.add_item.assert_not_called()

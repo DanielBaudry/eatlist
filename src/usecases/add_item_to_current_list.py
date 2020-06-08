@@ -11,4 +11,10 @@ class AddItemToCurrentList:
 
     def execute(self, new_item_name: str, user_id: int) -> ShoppingList:
         item = self.item_repository.convert_item_from_name(new_item_name)
+
+        shopping_list = self.shopping_list_repository.get_current_list(user_id)
+
+        if shopping_list.already_contains(item):
+            return shopping_list
+
         return self.shopping_list_repository.add_item(item, user_id)

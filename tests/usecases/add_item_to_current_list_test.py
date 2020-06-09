@@ -10,7 +10,7 @@ from src.usecases.add_item_to_current_list import AddItemToCurrentList
 class AddItemToCurrentListTest:
     def setup_method(self):
         self.item_repository = ItemRepositorySQL()
-        self.item_repository.convert_item_from_name = MagicMock()
+        self.item_repository.add_item_to_referential = MagicMock()
         self.shopping_list_repository = ShoppingListRepositorySQL()
         self.shopping_list_repository.get_current_list = MagicMock()
         self.shopping_list_repository.add_item = MagicMock()
@@ -24,7 +24,7 @@ class AddItemToCurrentListTest:
         item_name = 'Cacao'
         user_id = 5
         item = Item(identifier=12, name='Caco')
-        self.item_repository.convert_item_from_name.return_value = item
+        self.item_repository.add_item_to_referential.return_value = item
         shopping_list = ShoppingList(
             user_id=user_id,
             items=[
@@ -38,7 +38,7 @@ class AddItemToCurrentListTest:
                                               user_id=user_id)
 
         # Then
-        self.item_repository.convert_item_from_name.assert_called_once_with(item_name)
+        self.item_repository.add_item_to_referential.assert_called_once_with(item_name)
         self.shopping_list_repository.get_current_list.assert_called_once_with(user_id)
         self.shopping_list_repository.add_item.assert_called_once_with(item, user_id)
 
@@ -47,7 +47,7 @@ class AddItemToCurrentListTest:
         item_name = 'Cacao'
         user_id = 5
         item = Item(identifier=12, name='Caco')
-        self.item_repository.convert_item_from_name.return_value = item
+        self.item_repository.add_item_to_referential.return_value = item
         shopping_list = ShoppingList(
             user_id=user_id,
             items=[
@@ -61,6 +61,6 @@ class AddItemToCurrentListTest:
                                               user_id=user_id)
 
         # Then
-        self.item_repository.convert_item_from_name.assert_called_once_with(item_name)
+        self.item_repository.add_item_to_referential.assert_called_once_with(item_name)
         self.shopping_list_repository.get_current_list.assert_called_once_with(user_id)
         self.shopping_list_repository.add_item.assert_not_called()

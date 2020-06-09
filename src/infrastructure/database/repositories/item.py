@@ -1,3 +1,5 @@
+from sqlalchemy import func
+
 from src.domain.item import ItemRepository, Item
 from src.infrastructure.database.models import ItemSQLEntity
 from src.infrastructure.database.models.db import db
@@ -11,9 +13,9 @@ def to_domain(item_sql_entity: ItemSQLEntity) -> Item:
 
 
 class ItemRepositorySQL(ItemRepository):
-    def convert_item_from_name(self, new_item_name: str) -> Item:
+    def add_item_to_referential(self, new_item_name: str) -> Item:
         existing_item = db.session.query(ItemSQLEntity) \
-            .filter(ItemSQLEntity.name == new_item_name) \
+            .filter(func.lower(ItemSQLEntity.name) == func.lower(new_item_name)) \
             .first()
         if not existing_item:
             existing_item = ItemSQLEntity()

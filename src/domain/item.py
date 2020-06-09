@@ -9,5 +9,5 @@ class Item:
 
 class ItemRepository(ABC):
     @abstractmethod
-    def convert_item_from_name(self, new_item_name: str) -> Item:
+    def add_item_to_referential(self, new_item_name: str) -> Item:
         pass

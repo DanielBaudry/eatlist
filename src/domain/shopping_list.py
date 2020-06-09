@@ -2,10 +2,11 @@ from abc import abstractmethod, ABC
 from typing import List
 
 from src.domain.item import Item
+from src.domain.shopping_list_item import ShoppingListItem
 
 
 class ShoppingList:
-    def __init__(self, user_id: int, items: List = []):
+    def __init__(self, user_id: int, items: List[ShoppingListItem] = []):
         self.user_id = user_id
         self.items = items
 
@@ -23,4 +24,8 @@ class ShoppingListRepository(ABC):
 
     @abstractmethod
     def get_current_list(self, user_id: int) -> ShoppingList:
+        pass
+
+    @abstractmethod
+    def remove_item(self, user_id: int, shopping_item_id: int) -> ShoppingList:
         pass

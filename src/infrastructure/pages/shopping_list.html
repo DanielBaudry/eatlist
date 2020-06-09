@@ -3,20 +3,32 @@
     <title>Flask Intro - login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="static/shopping_list.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <h1>Liste de courses</h1>
     <br>
-    <form action="" method="post">
-        <input type="text" placeholder="Nom du produit" name="item" value="{{
+    <form action="/list/add" class="form-inline" method="POST">
+        <input type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
           request.form.product }}" autofocus>
-        <input class="btn btn-default" type="submit" value="Ajouter">
+        <input class="btn btn-primary" type="submit" value="Ajouter">
     </form>
     <div>
         <ul class="list-group">
             {% for item in shopping_list %}
-            <li class="list-group-item"> {{ item.name }} </li>
+            <li class="list-group-item shopping-list-item">
+                <div class="shopping-item-name">
+                    {{ item.name }}
+                </div>
+                <div class="shopping-item-actions">
+                    <a href="{{ '/list/remove/%s' % item.shopping_item_id }}"
+                       class="btn btn-warning"
+                       role="button">
+                        Retirer
+                    </a>
+                </div>
+            </li>
             {% endfor %}
         </ul>
     </div>

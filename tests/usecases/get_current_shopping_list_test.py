@@ -1,9 +1,7 @@
 from unittest.mock import MagicMock
 
 from src.domain.item import Item
-from src.infrastructure.database.repositories.item import ItemRepositorySQL
 from src.infrastructure.database.repositories.shopping_list import ShoppingListRepositorySQL
-from src.usecases.add_item_to_current_list import AddItemToCurrentList
 from src.usecases.get_current_shopping_list import GetCurrentShoppingList
 
 

@@ -1,0 +1,16 @@
+.shopping-list-item{
+    padding-left: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.shopping-item-name {
+    flex: 5;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.shopping-item-actions {
+    flex: 1;
+}

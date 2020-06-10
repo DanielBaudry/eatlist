@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy import func
 
 from src.domain.item import ItemRepository, Item
@@ -13,6 +15,10 @@ def to_domain(item_sql_entity: ItemSQLEntity) -> Item:
 
 
 class ItemRepositorySQL(ItemRepository):
+    def get_all(self) -> List[Item]:
+        items = db.session.query(ItemSQLEntity).all()
+        return [to_domain(item) for item in items]
+
     def add_item_to_referential(self, new_item_name: str) -> Item:
         existing_item = db.session.query(ItemSQLEntity) \
             .filter(func.lower(ItemSQLEntity.name) == func.lower(new_item_name)) \

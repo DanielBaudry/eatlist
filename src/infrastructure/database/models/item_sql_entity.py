@@ -9,3 +9,6 @@ class ItemSQLEntity(Model):
     id = Column(Integer, primary_key=True, autoincrement=True)
 
     name = Column(String(80), unique=True)
+
+    def __str__(self) -> str:
+        return self.name

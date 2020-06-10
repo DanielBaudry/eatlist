@@ -29,8 +29,13 @@
         </ul>
     </div>
     <form action="/list/add" method="POST">
-        <input type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
-          request.form.product }}" autofocus>
+        <input list="items" type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
+          request.form.product }}" autocomplete="off" autofocus>
+        <datalist id="items">
+            {% for item in items %}
+                <option>{{ item.name }}</option>
+            {% endfor %}
+        </datalist>
         <input class="btn btn-success btn-block" type="submit" value="Ajouter">
     </form>
     <div>

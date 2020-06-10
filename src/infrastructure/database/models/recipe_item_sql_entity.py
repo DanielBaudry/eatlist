@@ -1,6 +1,4 @@
-import bcrypt
-from flask_login import UserMixin
-from sqlalchemy import Column, String, Integer, LargeBinary, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey
 
 from src.infrastructure.database.models.model import Model
 

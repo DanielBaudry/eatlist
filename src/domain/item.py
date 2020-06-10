@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import List
 
 
 class Item:
@@ -14,6 +15,10 @@ class Item:
 
 
 class ItemRepository(ABC):
+    @abstractmethod
+    def get_all(self) -> List[Item]:
+        pass
+
     @abstractmethod
     def add_item_to_referential(self, new_item_name: str) -> Item:
         pass

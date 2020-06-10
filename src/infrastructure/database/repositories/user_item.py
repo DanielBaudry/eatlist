@@ -1,4 +1,3 @@
-from src.domain.shopping_list import ShoppingList
 from src.domain.shopping_list_item import ShoppingListItem
 from src.infrastructure.database.models.user_item_sql_entity import UserItemSQLEntity
 

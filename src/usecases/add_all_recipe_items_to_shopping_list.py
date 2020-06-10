@@ -9,4 +9,6 @@ class AddAllRecipeItemsToShoppingList:
 
     def execute(self, user_id: int, recipe_id: int) -> None:
         recipe = self.recipe_repository.get_recipe(recipe_id)
-        self.shopping_list_repository.add_items(user_id, recipe.items)
+        shopping_list = self.shopping_list_repository.get_current_list(user_id)
+        shopping_list.add_items(recipe.items)
+        self.shopping_list_repository.update(shopping_list)

@@ -19,9 +19,15 @@ def to_domain(user_items: List[object], user_id: int) -> ShoppingList:
 
 
 class ShoppingListRepositorySQL(ShoppingListRepository):
-    def add_items(self, user_id: int, items: List[Item]) -> None:
-        for item in items:
-            self.add_item(item=item, user_id=user_id)
+    def update(self, shopping_list: ShoppingList) -> None:
+        for item in shopping_list.items:
+            existing_item = db.session.query(UserItemSQLEntity)\
+                .filter(UserItemSQLEntity.itemId == item.identifier) \
+                .filter(UserItemSQLEntity.userId == shopping_list.user_id) \
+                .filter(UserItemSQLEntity.shopping_date == None) \
+                .first()
+            if not existing_item:
+                self.add_item(item=item, user_id=shopping_list.user_id)
 
     def archive_current_list(self, user_id: int) -> None:
         db.session.query(UserItemSQLEntity) \

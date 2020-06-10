@@ -13,7 +13,7 @@ class AddItemToCurrentListTest:
         self.item_repository = ItemRepositorySQL()
         self.item_repository.add_item_to_referential = MagicMock()
         self.shopping_list_repository = ShoppingListRepositorySQL()
-        self.shopping_list_repository.get_current_list = MagicMock()
+        self.shopping_list_repository.get_shopping_list = MagicMock()
         self.shopping_list_repository.update = MagicMock()
         self.add_item_to_current_list = AddItemToCurrentList(
             self.item_repository,
@@ -36,7 +36,7 @@ class AddItemToCurrentListTest:
                 )
             ]
         )
-        self.shopping_list_repository.get_current_list.return_value = shopping_list
+        self.shopping_list_repository.get_shopping_list.return_value = shopping_list
 
         # When
         self.add_item_to_current_list.execute(new_item_name=item_name,
@@ -44,5 +44,5 @@ class AddItemToCurrentListTest:
 
         # Then
         self.item_repository.add_item_to_referential.assert_called_once_with(item_name)
-        self.shopping_list_repository.get_current_list.assert_called_once_with(user_id)
+        self.shopping_list_repository.get_shopping_list.assert_called_once_with(user_id)
         self.shopping_list_repository.update.assert_called_once_with(shopping_list)

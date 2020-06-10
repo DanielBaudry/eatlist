@@ -11,7 +11,7 @@ class AddItemToCurrentList:
 
     def execute(self, new_item_name: str, user_id: int) -> ShoppingList:
         item = self.item_repository.add_item_to_referential(new_item_name)
-        shopping_list = self.shopping_list_repository.get_current_list(user_id)
+        shopping_list = self.shopping_list_repository.get_shopping_list(user_id)
 
         shopping_list.add_item(item)
 

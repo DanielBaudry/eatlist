@@ -1,20 +1,23 @@
 from flask import current_app as app, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 
-from src.infrastructure.injector import add_item_to_current_list, get_current_shopping_list, \
+from src.infrastructure.injector import add_item_to_current_list, get_shopping_list, \
     remove_item_from_current_shopping_list, get_all_items, archive_current_shopping_list, \
-    add_all_recipe_items_to_shopping_list
+    add_all_recipe_items_to_shopping_list, get_shopping_list_history
 
 
 @app.route("/list", methods=['GET'])
 @login_required
 def shopping():
+    expected_shopping_list_date = request.args.get('date')
     items = get_all_items.execute()
-    shopping_list = get_current_shopping_list.execute(current_user.id)
+    history = get_shopping_list_history.execute(current_user.id)
+    shopping_list = get_shopping_list.execute(current_user.id, expected_shopping_list_date)
     return render_template(
         'shopping_list.html',
         shopping_list=shopping_list.items,
-        items=items
+        shopping_list_history=history.shopping_list_date,
+        items=items,
     )
 
 

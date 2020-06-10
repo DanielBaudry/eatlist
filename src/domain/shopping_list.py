@@ -1,7 +1,9 @@
 from abc import abstractmethod, ABC
-from typing import List
+from datetime import datetime
+from typing import List, Optional
 
 from src.domain.item import Item
+from src.domain.shopping_list_history import ShoppingListHistory
 from src.domain.shopping_list_item import ShoppingListItem
 
 
@@ -37,7 +39,7 @@ class ShoppingListRepository(ABC):
         pass
 
     @abstractmethod
-    def get_current_list(self, user_id: int) -> ShoppingList:
+    def get_shopping_list(self, user_id: int, shopping_list_date: Optional[datetime] = None) -> ShoppingList:
         pass
 
     @abstractmethod
@@ -50,4 +52,8 @@ class ShoppingListRepository(ABC):
 
     @abstractmethod
     def update(self, shopping_list: ShoppingList):
+        pass
+
+    @abstractmethod
+    def get_history(self, user_id: int) -> ShoppingListHistory:
         pass

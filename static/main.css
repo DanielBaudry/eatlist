@@ -20,6 +20,14 @@
     flex: 1;
 }
 
+.shopping-list-history {
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 16px;
+}
+
 .item-selected {
     text-decoration: line-through;
 }

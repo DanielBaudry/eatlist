@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Liste de courses</h1>
+    <h1>eAtList</h1>
 
     <div class="navigation">
         <ul class="nav nav-pills">
@@ -60,6 +60,25 @@
                         Retirer
                     </a>
                 </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="shopping-list-history">
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item">
+                <a href="/list"
+                   role="button">
+                    <span>Actuelle</span>
+                </a>
+            </li>
+            {% for history in shopping_list_history %}
+            <li class="list-group-item">
+                <a href="{{ '/list?date=%s' % history }}"
+                   role="button">
+                    <span>{{ history.strftime('%Y-%m-%d') }}</span>
+                </a>
             </li>
             {% endfor %}
         </ul>

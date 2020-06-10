@@ -9,6 +9,7 @@ from src.usecases.get_all_items import GetAllItems
 from src.usecases.get_all_recipes import GetAllRecipes
 from src.usecases.get_available_recipes import GetAvailableRecipes
 from src.usecases.get_current_shopping_list import GetCurrentShoppingList
+from src.usecases.get_shopping_list_history import GetShoppingListHistory
 from src.usecases.get_user_by_id import GetUserById
 from src.usecases.get_user_with_credentials import GetUserWithCredentials
 from src.usecases.remove_item_from_current_shopping_list import RemoveItemFromCurrentShoppingList
@@ -26,7 +27,7 @@ get_user_by_id = GetUserById(user_repository)
 add_item_to_current_list = AddItemToCurrentList(item_repository,
                                                 shopping_list_repository)
 
-get_current_shopping_list = GetCurrentShoppingList(shopping_list_repository)
+get_shopping_list = GetCurrentShoppingList(shopping_list_repository)
 
 remove_item_from_current_shopping_list = RemoveItemFromCurrentShoppingList(shopping_list_repository)
 
@@ -39,3 +40,5 @@ archive_current_shopping_list = ArchiveCurrentShoppingList(shopping_list_reposit
 get_all_recipes = GetAllRecipes(recipre_repository)
 
 add_all_recipe_items_to_shopping_list = AddAllRecipeItemsToShoppingList(shopping_list_repository, recipre_repository)
+
+get_shopping_list_history = GetShoppingListHistory(shopping_list_repository)

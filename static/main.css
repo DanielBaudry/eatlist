@@ -1,3 +1,8 @@
+.navigation {
+    margin-bottom: 12px;
+    margin-top: 12px;
+}
+
 .shopping-list-item{
     padding-left: 20px;
     display: flex;
@@ -13,4 +18,8 @@
 
 .shopping-item-actions {
     flex: 1;
+}
+
+.item-selected {
+    text-decoration: line-through;
 }

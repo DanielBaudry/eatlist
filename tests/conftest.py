@@ -9,6 +9,8 @@ from sqlalchemy import orm
 
 from src.infrastructure.database.models import UserItemSQLEntity, UserSQLEntity, ItemSQLEntity
 from src.infrastructure.database.models.db import db
+from src.infrastructure.database.models.recipe_item_sql_entity import RecipeItemSQLEntity
+from src.infrastructure.database.models.recipe_sql_entity import RecipeSQLEntity
 
 
 def find_user_by_id(user_id: int) -> Optional[UserSQLEntity]:
@@ -49,6 +51,8 @@ def truncate_all_tables():
     db.session.query(UserItemSQLEntity).delete()
     db.session.query(UserSQLEntity).delete()
     db.session.query(ItemSQLEntity).delete()
+    db.session.query(RecipeItemSQLEntity).delete()
+    db.session.query(RecipeSQLEntity).delete()
     db.session.flush()
 
 

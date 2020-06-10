@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>Flask Intro - login page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="static/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1>Liste des Repas</h1>
+
+    <div class="navigation">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="/list"
+                   class="nav-link"
+                   role="button">
+                    Courses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/recipe"
+                   class="nav-link active"
+                   role="button">
+                    Recettes
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div>
+        <ul class="list-group">
+            {% for recipe in recipes %}
+            <li class="list-group-item">
+                {{ recipe.name }}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>

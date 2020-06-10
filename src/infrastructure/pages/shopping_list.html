@@ -2,17 +2,36 @@
 <head>
     <title>Flask Intro - login page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="static/shopping_list.css" rel="stylesheet">
+    <link href="static/main.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
     <h1>Liste de courses</h1>
-    <br>
-    <form action="/list/add" class="form-inline" method="POST">
+
+    <div class="navigation">
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="/list"
+                   class="nav-link active"
+                   role="button">
+                    Courses
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/recipe"
+                   class="nav-link"
+                   role="button">
+                    Recettes
+                </a>
+            </li>
+        </ul>
+    </div>
+    <form action="/list/add" method="POST">
         <input type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
           request.form.product }}" autofocus>
-        <input class="btn btn-primary" type="submit" value="Ajouter">
+        <input class="btn btn-success btn-block" type="submit" value="Ajouter">
     </form>
     <div>
         <ul class="list-group">
@@ -34,5 +53,14 @@
     </div>
 
 </div>
+<script>
+    $('.shopping-item-name').click(function() {
+        if ($(this).hasClass('item-selected')){
+            $(this).removeClass('item-selected');
+        } else {
+            $(this).addClass('item-selected');
+        }
+    });
+</script>
 </body>
 </html>

@@ -6,6 +6,12 @@ class Item:
         self.identifier = identifier
         self.name = name
 
+    def __eq__(self, other) -> bool:
+        return self.identifier == other.identifier
+
+    def __hash__(self):
+        return self.identifier
+
 
 class ItemRepository(ABC):
     @abstractmethod

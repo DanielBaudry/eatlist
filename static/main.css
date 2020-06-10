@@ -23,3 +23,8 @@
 .item-selected {
     text-decoration: line-through;
 }
+
+.recipe-name {
+    font-size: 20px;
+    font-weight: 600;
+}

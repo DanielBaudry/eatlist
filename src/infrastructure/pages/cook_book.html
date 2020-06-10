@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Liste des Repas</h1>
+    <h1>Livre de recette</h1>
 
     <div class="navigation">
         <ul class="nav nav-pills">
@@ -21,14 +21,14 @@
             </li>
             <li class="nav-item">
                 <a href="/recipe"
-                   class="nav-link active"
+                   class="nav-link"
                    role="button">
                     Recettes
                 </a>
             </li>
             <li class="nav-item">
                 <a href="/book"
-                   class="nav-link"
+                   class="nav-link active"
                    role="button">
                     Repas
                 </a>
@@ -39,7 +39,17 @@
         <ul class="list-group">
             {% for recipe in recipes %}
             <li class="list-group-item">
-                {{ recipe.name }}
+                <span class="recipe-name">
+                    {{ recipe.name }}
+                </span>
+                <div>
+                    {% for item in recipe.items %}
+                        <span class="badge badge-info">
+                            {{ item.name }}
+                        </span>
+                    {% endfor %}
+                </div>
+
             </li>
             {% endfor %}
         </ul>

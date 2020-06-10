@@ -26,8 +26,16 @@
                     Recettes
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/book"
+                   class="nav-link"
+                   role="button">
+                    Repas
+                </a>
+            </li>
         </ul>
     </div>
+
     <form action="/list/add" method="POST">
         <input list="items" type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
           request.form.product }}" autocomplete="off" autofocus>

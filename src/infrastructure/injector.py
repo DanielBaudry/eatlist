@@ -3,6 +3,7 @@ from src.infrastructure.database.repositories.recipe import RecipeRepositorySQL
 from src.infrastructure.database.repositories.shopping_list import ShoppingListRepositorySQL
 from src.infrastructure.database.repositories.user import UserRepositorySQL
 from src.usecases.add_item_to_current_list import AddItemToCurrentList
+from src.usecases.archive_current_shopping_list import ArchiveCurrentShoppingList
 from src.usecases.get_all_items import GetAllItems
 from src.usecases.get_available_recipes import GetAvailableRecipes
 from src.usecases.get_current_shopping_list import GetCurrentShoppingList
@@ -30,3 +31,4 @@ remove_item_from_current_shopping_list = RemoveItemFromCurrentShoppingList(shopp
 get_available_recipes = GetAvailableRecipes(recipre_repository, shopping_list_repository)
 
 get_all_items = GetAllItems(item_repository)
+archive_current_shopping_list = ArchiveCurrentShoppingList(shopping_list_repository)

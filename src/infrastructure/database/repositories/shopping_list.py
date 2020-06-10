@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from src.domain.item import Item
@@ -18,6 +19,12 @@ def to_domain(user_items: List[object], user_id: int) -> ShoppingList:
 
 
 class ShoppingListRepositorySQL(ShoppingListRepository):
+    def archive_current_list(self, user_id: int) -> None:
+        db.session.query(UserItemSQLEntity) \
+            .filter(UserItemSQLEntity.userId == user_id) \
+            .update(dict(shopping_date=datetime.now()))
+        db.session.commit()
+
     def remove_item(self, user_id: int, shopping_item_id: int) -> ShoppingList:
         user_item_sql_entity = db.session.query(UserItemSQLEntity)\
             .get(shopping_item_id)
@@ -30,6 +37,7 @@ class ShoppingListRepositorySQL(ShoppingListRepository):
             user_items=db.session.query(UserItemSQLEntity) \
                 .join(ItemSQLEntity, ItemSQLEntity.id == UserItemSQLEntity.itemId) \
                 .filter(UserItemSQLEntity.userId == user_id) \
+                .filter(UserItemSQLEntity.shopping_date == None) \
                 .with_entities(UserItemSQLEntity.id.label('shopping_item_id'),
                                ItemSQLEntity.id,
                                ItemSQLEntity.name) \

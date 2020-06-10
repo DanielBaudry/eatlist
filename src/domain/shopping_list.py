@@ -29,3 +29,7 @@ class ShoppingListRepository(ABC):
     @abstractmethod
     def remove_item(self, user_id: int, shopping_item_id: int) -> ShoppingList:
         pass
+
+    @abstractmethod
+    def archive_current_list(self, user_id: int) -> None:
+        pass

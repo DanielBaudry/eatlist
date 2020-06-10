@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey
+from sqlalchemy import Column, Integer, ForeignKey, DateTime
 
 from src.infrastructure.database.models.model import Model
 
@@ -11,3 +11,5 @@ class UserItemSQLEntity(Model):
     userId = Column(Integer, ForeignKey("user.id"), nullable=False, index=True)
 
     itemId = Column(Integer, ForeignKey("item.id"), nullable=False, index=True)
+
+    shopping_date = Column(DateTime, nullable=True)

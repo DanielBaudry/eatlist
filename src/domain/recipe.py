@@ -5,7 +5,8 @@ from src.domain.item import Item
 
 
 class Recipe:
-    def __init__(self, name: str, items: List[Item] = []):
+    def __init__(self, identifier: int, name: str, items: List[Item] = []):
+        self.identifier = identifier
         self.name = name
         self.items = items
 
@@ -18,4 +19,8 @@ class Recipe:
 class RecipeRepository(ABC):
     @abstractmethod
     def get_recipes(self) -> List[Recipe]:
+        pass
+
+    @abstractmethod
+    def get_recipe(self, recipe_id: int) -> Recipe:
         pass

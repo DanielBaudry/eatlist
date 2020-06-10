@@ -15,6 +15,7 @@ class RecipeTest:
                 name='Tomates'
             )
             recipe = Recipe(
+                identifier=13,
                 name='Riz tomate',
                 items=[
                     item1,
@@ -44,6 +45,7 @@ class RecipeTest:
                 name='Tomates'
             )
             recipe = Recipe(
+                identifier=4,
                 name='Riz tomate',
                 items=[
                     item1,

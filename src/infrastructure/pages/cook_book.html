@@ -42,11 +42,16 @@
                 <span class="recipe-name">
                     {{ recipe.name }}
                 </span>
+                <a href="{{ '/list/recipe/add/%s' % recipe.identifier }}"
+                   class="btn btn-warning"
+                   role="button">
+                    Ajouter
+                </a>
                 <div>
                     {% for item in recipe.items %}
-                        <span class="badge badge-info">
-                            {{ item.name }}
-                        </span>
+                    <span class="badge badge-info">
+                        {{ item.name }}
+                    </span>
                     {% endfor %}
                 </div>
 

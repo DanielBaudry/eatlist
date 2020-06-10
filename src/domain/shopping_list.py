@@ -33,3 +33,7 @@ class ShoppingListRepository(ABC):
     @abstractmethod
     def archive_current_list(self, user_id: int) -> None:
         pass
+
+    @abstractmethod
+    def add_items(self, user_id: int, items: List[Item]) -> None:
+        pass

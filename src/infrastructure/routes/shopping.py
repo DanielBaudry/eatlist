@@ -2,7 +2,8 @@ from flask import current_app as app, render_template, request, redirect, url_fo
 from flask_login import login_required, current_user
 
 from src.infrastructure.injector import add_item_to_current_list, get_current_shopping_list, \
-    remove_item_from_current_shopping_list, get_all_items, archive_current_shopping_list
+    remove_item_from_current_shopping_list, get_all_items, archive_current_shopping_list, \
+    add_all_recipe_items_to_shopping_list
 
 
 @app.route("/list", methods=['GET'])
@@ -36,3 +37,10 @@ def add_item():
 def remove_item(user_item_id: int):
     remove_item_from_current_shopping_list.execute(current_user.id, user_item_id)
     return redirect(url_for('shopping'))
+
+
+@app.route("/list/recipe/add/<recipe_id>", methods=['GET'])
+@login_required
+def add_recipe(recipe_id: int):
+    add_all_recipe_items_to_shopping_list.execute(current_user.id, recipe_id)
+    return redirect(url_for('cook_books'))

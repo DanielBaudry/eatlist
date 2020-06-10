@@ -39,7 +39,17 @@
         <ul class="list-group">
             {% for recipe in recipes %}
             <li class="list-group-item">
-                {{ recipe.name }}
+                <span class="recipe-name">
+                    {{ recipe.name }}
+                </span>
+                <div>
+                    {% for item in recipe.items %}
+                    <span class="badge badge-info">
+                        {{ item.name }}
+                    </span>
+                    {% endfor %}
+                </div>
+
             </li>
             {% endfor %}
         </ul>

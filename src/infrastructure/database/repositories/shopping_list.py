@@ -19,6 +19,10 @@ def to_domain(user_items: List[object], user_id: int) -> ShoppingList:
 
 
 class ShoppingListRepositorySQL(ShoppingListRepository):
+    def add_items(self, user_id: int, items: List[Item]) -> None:
+        for item in items:
+            self.add_item(item=item, user_id=user_id)
+
     def archive_current_list(self, user_id: int) -> None:
         db.session.query(UserItemSQLEntity) \
             .filter(UserItemSQLEntity.userId == user_id) \

@@ -52,6 +52,13 @@
             <li class="list-group-item shopping-list-item">
                 <div class="shopping-item-name">
                     {{ item.name }}
+                    <div>
+                        {% if item.is_seasonal() %}
+                        <span class="badge badge-success">De saison</span>
+                        {% else %}
+                        <span class="badge badge-warning">Hors saison</span>
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="shopping-item-actions">
                     <a href="{{ '/list/remove/%s' % item.shopping_item_id }}"

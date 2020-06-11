@@ -1,0 +1,4 @@
+POSTGRES_USER=eatlist_adm
+POSTGRES_PASSWORD=eatlist_pwd
+POSTGRES_DB=eatlist_db_test
+DATABASE_URL=postgresql://eatlist_adm:eatlist_pwd@eatlist_database/eatlist_db_test

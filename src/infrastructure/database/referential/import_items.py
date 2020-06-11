@@ -6,7 +6,7 @@ from src.infrastructure.database.models.db import db
 
 
 #
-# CSV format: [nom de l'item]
+# CSV format: [nom de l'item][Mois de début conso][Mois de fin de conso]
 #
 def import_items_in_database(csv_path: str) -> None:
     with app.app_context():
@@ -28,3 +28,8 @@ def _save_new_item_to_database(csv_reader: iter) -> None:
             item.name = item_name
             db.session.add(item)
             db.session.commit()
+        seasonal_calendar_month_start = row[1] - 1
+        seasonal_calendar_month_end = row[2]
+        item.seasonal_calendar = [False for month in range(12)]
+        for month in range(seasonal_calendar_month_start, seasonal_calendar_month_end):
+            item.seasonal_calendar[month] = True

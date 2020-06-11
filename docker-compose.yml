@@ -1,0 +1,18 @@
+version: '3.2'
+
+services:
+  eatlist_database:
+    image: postgres:10.1
+    env_file:
+      - env_file
+    ports:
+      - '5423:5432'
+    command: postgres -c logging_collector=on -c log_destination=stderr -c log_min_duration_statement=0 -c log_statement=all -c log_duration=on
+
+  eatlist_database_test:
+      image: postgres:10.1
+      env_file:
+        - env_file_test
+      ports:
+        - '5424:5432'
+      command: postgres -c logging_collector=on -c log_destination=stderr -c log_min_duration_statement=0 -c log_statement=all -c log_duration=on

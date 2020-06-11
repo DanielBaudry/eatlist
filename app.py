@@ -14,9 +14,9 @@ app = Flask(__name__,
             static_url_path='/static'
             )
 app.secret_key = os.environ.get('FLASK_SECRET', 'HZ#1updrH9x6Vs!oQp0tC0!Q')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/eatlist.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://eatlist_adm:eatlist_pwd@localhost:5423/eatlist_db'
 app.url_map.strict_slashes = False
 
 admin = Admin(name='Back Office', url='/cook', template_mode='bootstrap3')

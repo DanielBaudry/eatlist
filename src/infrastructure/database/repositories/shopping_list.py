@@ -63,7 +63,8 @@ class ShoppingListRepositorySQL(ShoppingListRepository):
             .filter(UserItemSQLEntity.shopping_date == shopping_list_date) \
             .with_entities(UserItemSQLEntity.id.label('shopping_item_id'),
                            ItemSQLEntity.id,
-                           ItemSQLEntity.name) \
+                           ItemSQLEntity.name,
+                           ItemSQLEntity.seasonal_calendar) \
             .all()
         return to_domain(
             user_items=user_item_sql_entities,

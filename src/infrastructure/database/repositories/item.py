@@ -2,15 +2,17 @@ from typing import List
 
 from sqlalchemy import func
 
-from src.domain.item import ItemRepository, Item
+from src.domain.item import ItemRepository, Item, ALL_YEAR
 from src.infrastructure.database.models import ItemSQLEntity
 from src.infrastructure.database.models.db import db
 
 
 def to_domain(item_sql_entity: ItemSQLEntity) -> Item:
+    seasonal_calendar = item_sql_entity.seasonal_calendar if item_sql_entity.seasonal_calendar else ALL_YEAR
     return Item(
         identifier=item_sql_entity.id,
-        name=item_sql_entity.name
+        name=item_sql_entity.name,
+        season_calendar=seasonal_calendar,
     )
 
 

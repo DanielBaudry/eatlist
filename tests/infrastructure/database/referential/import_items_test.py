@@ -11,8 +11,8 @@ class SaveNewItemToDatabaseTest:
     def should_save_items_in_database_if_not_exists(self, app: fixture) -> None:
         # Given
         csv_reader_mock = iter([
-            ['Chou'],
-            ['Banane']
+            ['Chou', 1, 5],
+            ['Banane', 3, 12]
         ])
 
         # When
@@ -20,5 +20,11 @@ class SaveNewItemToDatabaseTest:
 
         # Then
         assert db.session.query(ItemSQLEntity).count() == 2
-        assert db.session.query(ItemSQLEntity).filter(ItemSQLEntity.name == 'Chou').count() == 1
-        assert db.session.query(ItemSQLEntity).filter(ItemSQLEntity.name == 'Banane').count() == 1
+        item_chou = db.session.query(ItemSQLEntity).filter(ItemSQLEntity.name == 'Chou').one()
+        item_banana = db.session.query(ItemSQLEntity).filter(ItemSQLEntity.name == 'Banane').one()
+        assert item_chou.seasonal_calendar == [
+            True, True, True, True, True, False, False, False, False, False, False, False,
+        ]
+        assert item_banana.seasonal_calendar == [
+            False, False, True, True, True, True, True, True, True, True, True, True,
+        ]

@@ -21,7 +21,7 @@ def find_user_by_id(user_id: int) -> Optional[UserSQLEntity]:
 def app():
     app = Flask(__name__, template_folder='../src/infrastructure/pages')
 
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/eatlist_test.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://eatlist_adm:eatlist_pwd@localhost:5424/eatlist_db_test'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = '@##&6cweafhv3426445'
     app.url_map.strict_slashes = False
@@ -50,8 +50,8 @@ def app():
 def truncate_all_tables():
     db.session.query(UserItemSQLEntity).delete()
     db.session.query(UserSQLEntity).delete()
-    db.session.query(ItemSQLEntity).delete()
     db.session.query(RecipeItemSQLEntity).delete()
+    db.session.query(ItemSQLEntity).delete()
     db.session.query(RecipeSQLEntity).delete()
     db.session.flush()
 

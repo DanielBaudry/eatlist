@@ -57,3 +57,7 @@ class ShoppingListRepository(ABC):
     @abstractmethod
     def get_history(self, user_id: int) -> ShoppingListHistory:
         pass
+
+    @abstractmethod
+    def get_all_shopping_list(self, user_id: int) -> List[ShoppingList]:
+        pass

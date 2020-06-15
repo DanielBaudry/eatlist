@@ -1,4 +1,4 @@
-from flask import current_app as app, render_template, request, redirect, url_for
+from flask import current_app as app, render_template, request, redirect, url_for, jsonify
 from flask_login import login_required, current_user
 
 from src.infrastructure.injector import add_item_to_current_list, get_shopping_list, \
@@ -32,7 +32,7 @@ def archive_shopping_list():
 @login_required
 def add_item():
     add_item_to_current_list.execute(request.form['item'], current_user.id)
-    return redirect(url_for('shopping'))
+    return jsonify(), 200
 
 
 @app.route("/list/remove/<user_item_id>", methods=['GET'])

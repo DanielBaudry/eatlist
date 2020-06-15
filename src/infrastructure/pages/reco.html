@@ -28,45 +28,62 @@
             </li>
             <li class="nav-item">
                 <a href="/book"
-                   class="nav-link active"
+                   class="nav-link"
                    role="button">
                     Bibliothèque
                 </a>
             </li>
             <li class="nav-item">
                 <a href="/reco"
-                   class="nav-link"
+                   class="nav-link active"
                    role="button">
                     Reco
                 </a>
             </li>
         </ul>
     </div>
+
     <div>
         <ul class="list-group">
-            {% for recipe in recipes %}
-            <li class="list-group-item">
-                <span class="recipe-name">
-                    {{ recipe.name }}
-                </span>
-                <a href="{{ '/list/recipe/add/%s' % recipe.identifier }}"
-                   class="btn btn-warning"
-                   role="button">
-                    Ajouter
-                </a>
-                <div>
-                    {% for item in recipe.items %}
-                    <span class="badge badge-info">
-                        {{ item.name }}
-                    </span>
-                    {% endfor %}
+            {% for item in items %}
+            <li class="list-group-item shopping-list-item">
+                <div class="shopping-item-name">
+                    {{ item.name }}
+                    <div>
+                        {% if item.is_seasonal() %}
+                        <span class="badge badge-success">De saison</span>
+                        {% else %}
+                        <span class="badge badge-warning">Hors saison</span>
+                        {% endif %}
+                    </div>
                 </div>
-
+                <div class="shopping-item-actions">
+                    <form id="{{ 'form_%s' % item.identifier }}"
+                          action="/list/add" method="POST">
+                        <input type="text" class="form-control" placeholder="Nom du produit"
+                               name="item" value="{{ item.name }}" hidden>
+                        <input class="btn btn-success" type="submit" value="Ajouter">
+                    </form>
+                </div>
             </li>
             {% endfor %}
         </ul>
     </div>
 
+
 </div>
+<script>
+    $('form').submit(function(e){
+        e.preventDefault();
+        const id = '#' + $(this).attr('id')
+        $.post(
+            $(this).attr('action'),
+            $(this).serialize(),
+            function(response){
+                $(id).hide()
+        },'json');
+        return false;
+    });
+</script>
 </body>
 </html>

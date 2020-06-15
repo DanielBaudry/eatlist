@@ -12,6 +12,7 @@ from src.usecases.get_current_shopping_list import GetCurrentShoppingList
 from src.usecases.get_shopping_list_history import GetShoppingListHistory
 from src.usecases.get_user_by_id import GetUserById
 from src.usecases.get_user_with_credentials import GetUserWithCredentials
+from src.usecases.recommend_items import RecommendItems
 from src.usecases.remove_item_from_current_shopping_list import RemoveItemFromCurrentShoppingList
 from src.usecases.user_signup import UserSignup
 
@@ -42,3 +43,5 @@ get_all_recipes = GetAllRecipes(recipre_repository)
 add_all_recipe_items_to_shopping_list = AddAllRecipeItemsToShoppingList(shopping_list_repository, recipre_repository)
 
 get_shopping_list_history = GetShoppingListHistory(shopping_list_repository)
+
+recommend_items = RecommendItems(shopping_list_repository)

@@ -33,10 +33,17 @@
                     Bibliothèque
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="/reco"
+                   class="nav-link"
+                   role="button">
+                    Reco
+                </a>
+            </li>
         </ul>
     </div>
 
-    <form action="/list/add" method="POST">
+    <form id="add_item" action="/list/add" method="POST">
         <input list="items" type="text" class="form-control" placeholder="Nom du produit" name="item" value="{{
           request.form.product }}" autocomplete="off" autofocus>
         <datalist id="items">
@@ -103,6 +110,17 @@
         } else {
             $(this).addClass('item-selected');
         }
+    });
+
+    $('#add_item').submit(function(e){
+        e.preventDefault();
+        $.post(
+            $(this).attr('action'),
+            $(this).serialize(),
+            function(response){
+                window.location.replace('/list');
+            },'json');
+        return false;
     });
 </script>
 </body>

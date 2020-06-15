@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import List, Optional
 
-from src.domain.item import Item
+from src.domain.item import Item, ALL_YEAR
+from src.domain.recommended_item import RecommendedItem
 from src.domain.shopping_list import ShoppingListRepository, ShoppingList
 from src.domain.shopping_list_history import ShoppingListHistory
 from src.infrastructure.database.models import ItemSQLEntity
@@ -23,7 +24,30 @@ def to_shopping_list_history(history: object) -> ShoppingListHistory:
     return ShoppingListHistory([user_item_date.shopping_date for user_item_date in history])
 
 
+def to_recommendation_list(existing_user_items: List[object]) -> List[RecommendedItem]:
+    print(existing_user_items[0])
+    return [RecommendedItem(
+        identifier=existing_user_item.id,
+        name=existing_user_item.name,
+        season_calendar=existing_user_item.seasonal_calendar if existing_user_item.seasonal_calendar else ALL_YEAR,
+        shopping_item_id=existing_user_item.shopping_item_id,
+        shopping_date=existing_user_item.shopping_date,
+    ) for existing_user_item in existing_user_items]
+
+
 class ShoppingListRepositorySQL(ShoppingListRepository):
+    def get_all_shopping_list(self, user_id: int) -> List[ShoppingList]:
+        existing_user_items = db.session.query(UserItemSQLEntity) \
+            .join(ItemSQLEntity, ItemSQLEntity.id == UserItemSQLEntity.itemId) \
+            .filter(UserItemSQLEntity.shopping_date != None) \
+            .with_entities(UserItemSQLEntity.id.label('shopping_item_id'),
+                           UserItemSQLEntity.shopping_date,
+                           UserItemSQLEntity.itemId.label('id'),
+                           ItemSQLEntity.name,
+                           ItemSQLEntity.seasonal_calendar) \
+            .all()
+        return to_recommendation_list(existing_user_items)
+
     def get_history(self, user_id: int) -> ShoppingListHistory:
         user_item_dates = db.session.query(UserItemSQLEntity) \
             .filter(UserItemSQLEntity.shopping_date != None) \

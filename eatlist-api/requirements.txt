@@ -1,0 +1,5 @@
+fastapi==0.103.0
+uvicorn[standard]==0.23.2
+SQLModel==0.0.8
+SQLAlchemy==1.4.41
+httpx==0.25.0

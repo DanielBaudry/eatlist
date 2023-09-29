@@ -18,3 +18,7 @@ class ShoppingListBase(SQLModel):
 
 class ShoppingListWithItems(ShoppingListBase):
     items: List[ItemBase] = []
+
+
+class UpdateShoppingList:
+    id: int

@@ -11,3 +11,7 @@ class MealBase(SQLModel):
 
 class MealWithItems(MealBase):
     items: List[ItemBase] = []
+
+
+class MealForShoppingList(MealBase):
+    id: int

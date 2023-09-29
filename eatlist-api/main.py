@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from infra.database.conf import create_db_and_tables
-from infra.routers import items
+from infra.routers import items, meals
 from infra.env import EnvironmentSettings
 
 
@@ -13,6 +13,7 @@ app = FastAPI(
 )
 
 app.include_router(items.router)
+app.include_router(meals.router)
 
 
 @app.get("/")

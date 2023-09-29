@@ -11,10 +11,6 @@ router = APIRouter(
 )
 
 
-class ItemRead(Item):
-    toto: int
-
-
 @router.get("/")
 def read_items(session: Session = Depends(get_session)):
     items = session.exec(select(Item)).all()

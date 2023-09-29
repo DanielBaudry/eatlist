@@ -1,6 +1,9 @@
+from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 
+from domain.entities.item import ItemBase
 from infra.database.conf import get_session
 from infra.database.models.item import Item
 
@@ -11,10 +14,9 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get("/", response_model=List[ItemBase])
 def read_items(session: Session = Depends(get_session)):
     items = session.exec(select(Item)).all()
-    print(items)
     return items
 
 

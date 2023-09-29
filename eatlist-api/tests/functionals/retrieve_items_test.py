@@ -21,7 +21,7 @@ class RetrieveItemsTest:
         assert response.status_code == 200
         data = response.json()
         assert data == [
-            {'id': 123, 'name': 'Pâtes', 'meal_id': None},
-            {'id': 456, 'name': 'Pesto', 'meal_id': None},
-            {'id': 789, 'name': 'Parmesan', 'meal_id': None}
+            {'name': 'Pâtes'},
+            {'name': 'Pesto'},
+            {'name': 'Parmesan'}
         ]

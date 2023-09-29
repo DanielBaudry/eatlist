@@ -1,13 +1,13 @@
 from typing import Optional, List
 
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import Field, Relationship
+
+from domain.entities.meal import MealBase
 
 
-class MealBase(SQLModel):
-    name: str
+class MealSQL(MealBase, table=True):
+    __tablename__: str = "meal"
 
-
-class Meal(MealBase, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
 
     items: List["Item"] = Relationship(back_populates="meal")

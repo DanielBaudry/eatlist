@@ -1,8 +1,12 @@
 from fastapi import FastAPI
 
 from infra.database.conf import create_db_and_tables
+from infra.database.models.item import Item
+from infra.database.models.meal_sql import MealSQL
 from infra.routers import items, meals
 from infra.env import EnvironmentSettings
+from sqlmodel import Session
+from infra.database.conf import engine
 
 
 conf_env = EnvironmentSettings()
@@ -24,3 +28,12 @@ async def root():
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+    items = [
+        Item(id=123, name="Pâtes"),
+        Item(id=456, name="Pesto"),
+        Item(id=789, name="Parmesan"),
+    ]
+    meal = MealSQL(id=123, name="Pâtes pesto", items=items)
+    with Session(engine) as session:
+        session.add(meal)
+        session.commit()

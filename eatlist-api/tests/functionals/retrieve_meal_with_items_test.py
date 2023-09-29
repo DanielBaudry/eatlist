@@ -1,5 +1,5 @@
 from infra.database.models.item import Item
-from infra.database.models.meal import Meal
+from infra.database.models.meal_sql import MealSQL
 
 
 class RetrieveMealsTest:
@@ -10,7 +10,7 @@ class RetrieveMealsTest:
             Item(id=456, name="Pesto"),
             Item(id=789, name="Parmesan"),
         ]
-        meal = Meal(id=123, name="Pâtes pesto", items=items)
+        meal = MealSQL(id=123, name="Pâtes pesto", items=items)
         session.add(meal)
         session.commit()
 
@@ -26,9 +26,9 @@ class RetrieveMealsTest:
             {
                 'name': 'Pâtes pesto',
                 'items': [
-                    {'id': 123, 'meal_id': 123, 'name': 'Pâtes'},
-                    {'id': 456, 'meal_id': 123, 'name': 'Pesto'},
-                    {'id': 789, 'meal_id': 123, 'name': 'Parmesan'}
+                    {'name': 'Pâtes'},
+                    {'name': 'Pesto'},
+                    {'name': 'Parmesan'}
                 ]
             }
         ]

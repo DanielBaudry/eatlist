@@ -4,8 +4,8 @@ from fastapi import APIRouter, Depends
 from sqlmodel import Session, select
 
 from infra.database.conf import get_session
-from infra.database.models.meal import MealBase, Meal
-from infra.database.models.item import Item
+from infra.database.models.meal_sql import MealSQL
+from domain.entities.meal import MealWithItems
 
 router = APIRouter(
     prefix="/meals",
@@ -14,11 +14,7 @@ router = APIRouter(
 )
 
 
-class MealWithItems(MealBase):
-    items: List[Item] = []
-
-
 @router.get("/", response_model=List[MealWithItems])
 def read_meals(session: Session = Depends(get_session)):
-    meals = session.exec(select(Meal)).all()
+    meals = session.exec(select(MealSQL)).all()
     return meals
